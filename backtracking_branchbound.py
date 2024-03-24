@@ -82,11 +82,4 @@ if __name__=="__main__":
         print(len(argAll[u])) 
         for x in argAll[u]: 
             print(x,end=' ')
-        print() 
-        
-
-
-
-
-
-
+        print()
