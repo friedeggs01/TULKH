@@ -1,7 +1,7 @@
 
 #task_k la danh sach cac cong viec phan cong cho nguoi thu k 
 
-
+from time import time 
 best_cost=1e9
 min_cost=0 
 min_Edge=1e9 
@@ -49,24 +49,32 @@ def RouteWay(tasks):
         for u in range(K+1): 
             argAll[u]=argTasks[u].copy() 
 
+UnEmployeed = 1
 # phan cong cong viec cho K nguoi     
 def assignTask(u: int,tasks):
-    
+    global UnEmployeed 
     if u==N+1: # neu da phan cong het ca N viec 
         RouteWay(tasks)
         return 
-    for k in range(1,K+1): 
+    if K-UnEmployeed+1 > N-u+1: 
+        return 
+    for k in range(1,min(UnEmployeed+1,K+1)): 
         tasks[k].append(u) 
+        if len(tasks[k])==1: 
+            UnEmployeed = k+1
         assignTask(u+1,tasks) 
         tasks[k].pop() 
+        if len(tasks[k])==0: 
+            UnEmployeed = k
 
 if __name__=="__main__": 
+    
     N,K = map(int,input().split())
- 
     d = [int(item) for item in input().split()] 
     c = [[] for i in range(N+5)] 
     for j in range(N+1): 
         c[j] = [int(item) for item in input().split()]
+    starttime = time()
     for u in range(N+1): 
         for v in range(N+1): 
             min_Edge=min(min_Edge,c[u][v])
@@ -77,6 +85,9 @@ if __name__=="__main__":
     visited = [False]*(N+5)
     argTasks = [[] for i in range(K+1)] 
     assignTask(1,tasks) 
+    endtime = time() 
+    print(endtime-starttime)
+    print(best_cost)
     print(K)   
     for u in range(1,K+1): 
         print(len(argAll[u])) 
