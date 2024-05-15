@@ -9,7 +9,7 @@ def calculate_total_time(assignments, repair_times, travel_times):
                 total_time += travel_times[emp_assignments[i]][emp_assignments[i+1]] 
             total_time += repair_times[emp_assignments[i]]
         if len(emp_assignments)>0: 
-            total_time += travel_times[0][emp_assignments[i]] 
+            total_time += travel_times[0][emp_assignments[0]] 
             total_time += travel_times[emp_assignments[-1]][0] 
         max_time = max(max_time, total_time)
     return max_time
@@ -19,11 +19,11 @@ def generate_neighbors(assignments,num_employees):
     for old_emp in assignments.keys():
         for old_cust in assignments[old_emp]: 
             for new_emp in range(num_employees):
-                if old_emp != new_emp:
-                    new_assignments ={emp :assignments[emp].copy() for emp in assignments.keys()} 
-                    new_assignments[old_emp].remove(old_cust)
-                    new_assignments[new_emp].append(old_cust)
-                    neighbors.append(new_assignments)
+                #if old_emp != new_emp:
+                new_assignments ={emp :assignments[emp].copy() for emp in assignments.keys()} 
+                new_assignments[old_emp].remove(old_cust)
+                new_assignments[new_emp].append(old_cust)
+                neighbors.append(new_assignments)
     return neighbors
 
 def local_search(customers, repair_times, travel_times, num_employees):
@@ -58,16 +58,19 @@ def local_search(customers, repair_times, travel_times, num_employees):
     return assignments, best_time
 
 if __name__=="__main__": 
-    fi = open('./data/data_10_5.txt','r') 
+    fi = open('./data/data_5_2.txt','r') 
     num_customers, num_employees = fi.readline().split(' ') 
     num_customers, num_employees = int(num_customers), int(num_employees) 
     customers = [i+1 for i in range(num_customers)]
     d = fi.readline().split(' ') 
     repair_times = { i+1: int(d[i]) for i in range(num_customers)}
+    
     travel_times = [[] for i in range(num_customers+1)]
     for i in range(num_customers+1): 
         tmp = fi.readline().split(' ')
         travel_times[i] = [int(tmp[i]) for i in range(num_customers+1)]
+    print(repair_times)
+    print(travel_times)
     assignments, best_time = local_search(customers, repair_times, travel_times, num_employees)
     print("Best Assignments:", assignments)
     print("Minimum Total Time:", best_time)
