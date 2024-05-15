@@ -47,22 +47,23 @@ def selection(population, fitness_scores):
     selected = random.choices(population, probabilities)[0]
     return selected
 
-def crossover(parent1, parent2):
-    child1 = {emp: [] for emp in parent1}
-    child2 = {emp: [] for emp in parent2}
-    for emp in parent1:
-        half = len(parent1[emp]) // 2
-        child1[emp] = parent1[emp][:half] + parent2[emp][half:]
-        child2[emp] = parent2[emp][:half] + parent1[emp][half:]
-    return child1, child2
+
 
 def mutation(assignments, mutation_rate):
-    for emp in assignments:
-        if random.random() < mutation_rate and len(assignments[emp])>0:
-            cust_index = random.randint(0, len(assignments[emp]) - 1)
-            new_emp = random.choice(list(assignments.keys()))
-            new_cust = assignments[emp].pop(cust_index)
-            assignments[new_emp].append(new_cust)
+    mutated_assignments = assignments.copy()
+
+    for emp, tasks in mutated_assignments.items():
+        if emp != 0 and random.random() < mutation_rate:
+            # Select a random subsequence of tasks assigned to the employee
+            if len(tasks) >= 2:
+                start = random.randint(0, len(tasks) - 2)
+                end = random.randint(start + 1, len(tasks))
+
+                # Reverse the subsequence of tasks
+                mutated_assignments[emp][start:end] = reversed(tasks[start:end])
+
+    return mutated_assignments
+
 
 def local_search_with_ga(customers, repair_times, travel_times, num_employees, population_size, num_generations, mutation_rate):
     population = generate_initial_population(customers, num_employees, population_size)
