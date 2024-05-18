@@ -1,4 +1,5 @@
 import random
+from time import time 
 
 def calculate_total_time(assignments, repair_times, travel_times):
     max_time = 0
@@ -58,22 +59,45 @@ def local_search(customers, repair_times, travel_times, num_employees):
     return assignments, best_time
 
 if __name__=="__main__": 
-    fi = open('./data/data_5_2.txt','r') 
+
+    fi = open('./data/data_1000_50.txt','r') 
+    output = open('./result/result_hill_climbing_local_search/data_1000_50.txt','w')
     num_customers, num_employees = fi.readline().split(' ') 
+    #num_customers, num_employees = input().split(' ')
     num_customers, num_employees = int(num_customers), int(num_employees) 
     customers = [i+1 for i in range(num_customers)]
     d = fi.readline().split(' ') 
+    #d = input().split(' ') 
     repair_times = { i+1: int(d[i]) for i in range(num_customers)}
     
     travel_times = [[] for i in range(num_customers+1)]
     for i in range(num_customers+1): 
         tmp = fi.readline().split(' ')
+        #tmp = input().split(' ')
         travel_times[i] = [int(tmp[i]) for i in range(num_customers+1)]
-    print(repair_times)
-    print(travel_times)
+    #print(repair_times)
+    #print(travel_times)
+    starttime = time() 
     assignments, best_time = local_search(customers, repair_times, travel_times, num_employees)
-    print("Best Assignments:", assignments)
+    endtime = time() 
+    output.write("Objective value: "+str(best_time)+'\n')
+    print("Running time "+str(endtime-starttime))
+    output.write("Running time "+str(endtime-starttime)+'\n') 
     print("Minimum Total Time:", best_time)
+    output.write("Solution"+'\n')
+    print(num_employees)
+    for emp in assignments.keys(): 
+        print(len(assignments[emp]))
+        print(0,end=' ') 
+        output.write(str(0)+' ') 
+        for task in assignments[emp]: 
+            print(task,end=' ') 
+            output.write(str(task)+' ')
+        print(0)
+        output.write(str(0)+'\n')
+    output.close()
+    print("Best Assignments:", assignments)
+    
 
 
 
