@@ -1,0 +1,10 @@
+Objective value: 1914
+Running time: 0.011177
+Number customers: 10
+Number vehicles: 5
+Solution:
+0 6 1 0
+0 10 7 2 0
+0 3 8 0
+0 4 0
+0 5 9 0

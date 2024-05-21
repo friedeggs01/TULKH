@@ -1,0 +1,7 @@
+Objective value: 1973
+Running time: 14.794460
+Number customers: 5
+Number vehicles: 2
+Solution:
+0 3 1 0
+0 2 5 4 0
