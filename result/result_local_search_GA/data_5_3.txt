@@ -1,0 +1,6 @@
+Objective value: 983
+Running time 3.0038387775421143
+Solution
+0 2 0
+0 3 1 0
+0 4 5 0
