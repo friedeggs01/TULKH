@@ -1,0 +1,10 @@
+Objective value: 2633
+Running time: 0.004989
+Number customers: 20
+Number vehicles: 5
+Solution:
+0 1 20 9 18 15 0
+0 16 11 2 12 0
+0 8 3 10 19 0
+0 17 4 7 13 0
+0 14 5 6 0

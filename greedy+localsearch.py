@@ -1,4 +1,5 @@
 import time
+import os
 
 def two_opt(route, cost_matrix):
     best_route = route
@@ -87,26 +88,36 @@ def greedyAssignTask(u, tasks):
 if __name__ == "__main__":
     start_time = time.time()
     
-    N, K = map(int, input().split())
+    # Use raw string to handle backslashes correctly
+    file_path = r'D:\Tài Liệu\Tối ưu\abcd\TULKH\result\result_greddy+localsearch\data_1000_50.txt'
     
-    d = [int(item) for item in input().split()]
-    c = [[] for _ in range(N + 5)]
-    for j in range(N + 1):
-        c[j] = [int(item) for item in input().split()]
-    
-    best_cost = float('inf')
-    argAll = [[] for _ in range(K + 5)]
-    tasks = [[] for _ in range(K + 1)]
-    
-    greedyAssignTask(1, tasks)
-    
-    end_time = time.time()
-    running_time = end_time - start_time
-    
-    print(f"Objective value: {best_cost}")
-    print(f"Running time: {running_time:.6f}")
-    print(f"Number customers: {N}")
-    print(f"Number vehicles: {K}")
-    print("Solution:")
-    for u in range(1, K + 1):
-        print(" ".join(map(str, argAll[u])))
+    if not os.path.isfile(file_path):
+        print(f"Error: File '{file_path}' not found.")
+    else:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+        
+        N, K = map(int, lines[0].split())
+        d = [int(item) for item in lines[1].split()]
+        c = [[] for _ in range(N + 5)]
+        for j in range(N + 1):
+            c[j] = [int(item) for item in lines[j + 2].split()]
+        
+        best_cost = float('inf')
+        argAll = [[] for _ in range(K + 5)]
+        tasks = [[] for _ in range(K + 1)]
+        
+        greedyAssignTask(1, tasks)
+        
+        end_time = time.time()
+        running_time = end_time - start_time
+        
+        # Reopen the file in write mode to overwrite it with new results
+        with open(file_path, 'w') as file:
+            file.write(f"Objective value: {best_cost}\n")
+            file.write(f"Running time: {running_time:.6f}\n")
+            file.write(f"Number customers: {N}\n")
+            file.write(f"Number vehicles: {K}\n")
+            file.write("Solution:\n")
+            for u in range(1, K + 1):
+                file.write(" ".join(map(str, argAll[u])) + "\n")
