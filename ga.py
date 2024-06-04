@@ -221,7 +221,7 @@ population_size, num_generations, mutation_rate = 500, 500, 0.5
 
 for inp in ['data_5_2.txt']:#os.listdir('data'):, 'data_10_5.txt', 'data_20_10.txt', 'data_50_25.txt'
     inp = os.path.join('data',inp)
-    with open('output.txt','a') as f:
+    with open('result/ga.txt','a') as f:
         f.write(f"{inp}\n")
     start_time = time.time()
     N, K, d, t = readData(inp)
