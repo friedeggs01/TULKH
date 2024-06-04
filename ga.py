@@ -161,7 +161,7 @@ def ga(num_customs, num_employees, times, population_size, num_generations, muta
                 shortest_time = time_tmp
                 best_solution = pop
             fitness.append(1/time_tmp + epsilon)
-        for num_generation in range(num_generations):
+        for pop_id in range(population_size):
             p1 = selection(pops,fitness)
             p2 = selection(pops,fitness)
             # print('p1',p1,'p2',p2)
@@ -187,7 +187,7 @@ def ga(num_customs, num_employees, times, population_size, num_generations, muta
         top_k = sorted_combined[:population_size]
         pops = [pop for pop, point in top_k]       
 
-    return best_solution
+    return best_solution, shortest_time
 
 
 import os
@@ -211,7 +211,7 @@ def creat_cost(N, d, t):
 #############################
 #           config          #
 #############################
-population_size, num_generations, mutation_rate = 10, 3, 0.5
+population_size, num_generations, mutation_rate = 500, 500, 0.5
 
 
 
@@ -221,15 +221,16 @@ population_size, num_generations, mutation_rate = 10, 3, 0.5
 
 for inp in ['data_5_2.txt']:#os.listdir('data'):, 'data_10_5.txt', 'data_20_10.txt', 'data_50_25.txt'
     inp = os.path.join('data',inp)
-    with open('log_output.txt', 'a+') as f:
-        f.write(f"{inp}\n")
     with open('output.txt','a') as f:
         f.write(f"{inp}\n")
     start_time = time.time()
     N, K, d, t = readData(inp)
     t = creat_cost(N, d, t)
     best = ga(num_customs = N, num_employees=K, times=t,  population_size=population_size, num_generations=num_generations, mutation_rate=mutation_rate)
-    print(best)
     end_time = time.time()
-    with open('output.txt','a') as f:
+    print(best)
+    with open('result/ga.txt','a') as f:
         f.write(str(end_time - start_time)+"\n")
+        for key, value in best[0].items():
+            f.write(f'{key}: {value}\n')
+        f.write('total time:' + str(best[1])+"\n")
