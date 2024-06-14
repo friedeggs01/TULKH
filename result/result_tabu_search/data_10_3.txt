@@ -1,6 +1,6 @@
-Objective value: 2484
-Running time 4.735142707824707
+Objective value: 2531
+Running time 0.20019078254699707
 Solution
-0 2 3 9 0
-0 4 6 8 0
 0 1 5 7 10 0
+0 2 6 4 0
+0 8 9 3 0

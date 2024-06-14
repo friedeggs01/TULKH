@@ -18,6 +18,7 @@ def calculate_total_time(assignments, repair_times, travel_times):
 
 def generate_neighbors(assignments,num_employees):
     neighbors = []
+    random.shuffle(assignments)
     for old_emp in assignments.keys():
         for old_cust in assignments[old_emp]: 
             for new_emp in range(num_employees):
@@ -26,6 +27,9 @@ def generate_neighbors(assignments,num_employees):
                 new_assignments[old_emp].remove(old_cust)
                 new_assignments[new_emp].append(old_cust)
                 neighbors.append(new_assignments)
+                if len(neighbors) > 5000: break 
+            if len(neighbors) > 5000: break 
+        if len(neighbors)> 5000: break 
     return neighbors
 
 def tabu_search(customers, repair_times, travel_times, num_employees):
@@ -41,7 +45,7 @@ def tabu_search(customers, repair_times, travel_times, num_employees):
 
     # Define Tabu Search parameters
     tabu_list = []
-    max_iter = 10000
+    max_iter = 500
     tabu_size = 20
 
     # Perform Tabu Search iterations
@@ -73,10 +77,12 @@ def tabu_search(customers, repair_times, travel_times, num_employees):
 
 if __name__=="__main__": 
     
-    inp = ['data_50_10.txt','data_50_20.txt','data_50_25.txt',
-           'data_5_3.txt','data_10_2.txt','data_10_3.txt','data_10_5.txt',
-           'data_20_3.txt','data_20_5.txt','data_20_7.txt','data_20_10.txt','data_100_10.txt',
-          'data_100_50.txt','data_200_20.txt','data_200_50.txt','500_20','1000_50']
+    #inp = ['data_50_10.txt','data_50_20.txt','data_50_25.txt',
+    #       'data_5_3.txt','data_10_2.txt','data_10_3.txt','data_10_5.txt',
+    #       'data_20_3.txt','data_20_5.txt','data_20_7.txt','data_20_10.txt','data_100_10.txt',
+    #     'data_100_50.txt','data_200_20.txt']
+    #inp.extend(['data_100_50.txt','data_200_20.txt','data_200_50.txt','data_500_20.txt','data_1000_50.txt'])
+    inp = ['data_700_50.txt','data_700_70.txt','data_1000_50.txt']
    
     for s in inp: 
         path_inp = './data/'+s 
