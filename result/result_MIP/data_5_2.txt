@@ -1,8 +1,8 @@
-Objective: 1655.0
-Time processing: 326
+Objective: 1654.9999999999995
+Time processing: 670
 Solution: 
 2
+3
+0 2 1 0 
 4
 0 5 4 3 0 
-3
-0 1 2 0 
