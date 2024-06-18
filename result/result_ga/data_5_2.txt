@@ -1,0 +1,5 @@
+Objective: 1655
+Running time : 47.49956464767456
+Solution:
+2 1
+3 4 5

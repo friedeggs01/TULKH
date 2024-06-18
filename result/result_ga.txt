@@ -1,4 +1,3 @@
-start
 /kaggle/input/tulkh-data/data_5_3.txt
 50.64288306236267
 0: [4, 5]
