@@ -1,0 +1,5 @@
+Objective: 3316
+Running time : 0.025319814682006836
+Solution : 
+0 10 7 3 4 8 2 0
+0 6 9 5 1 0
