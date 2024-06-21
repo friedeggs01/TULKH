@@ -30,6 +30,21 @@ def generate_neighbors(assignments,num_employees):
                 if len(neighbors) > 5000: break 
             if len(neighbors) > 5000: break 
         if len(neighbors)> 5000: break 
+    
+    for old_emp in assignments.keys():
+        for i in range(len(assignments[old_emp])):
+            for j in range(i+1, len(assignments[old_emp])):
+                new_assignments = {emp: assignments[emp].copy() for emp in assignments.keys()}
+                new_assignments[old_emp] = new_assignments[old_emp][:i] + list(reversed(new_assignments[old_emp][i:j+1])) + new_assignments[old_emp][j+1:]
+                neighbors.append(new_assignments)
+                if len(neighbors) > 5000:
+                    break
+                if len(neighbors) > 5000:
+                    break
+            if len(neighbors) > 5000: break 
+        if len(neighbors)> 5000: break 
+    random.shuffle(neighbors) 
+    
     return neighbors
 
 def tabu_search(customers, repair_times, travel_times, num_employees):
@@ -82,7 +97,9 @@ if __name__=="__main__":
     #       'data_20_3.txt','data_20_5.txt','data_20_7.txt','data_20_10.txt','data_100_10.txt',
     #     'data_100_50.txt','data_200_20.txt']
     #inp.extend(['data_100_50.txt','data_200_20.txt','data_200_50.txt','data_500_20.txt','data_1000_50.txt'])
-    inp = ['data_700_50.txt','data_700_70.txt','data_1000_50.txt']
+    #inp = ['data_200_50.txt','data_500_20.txt','data_500_50.txt',
+    #       'data_700_50.txt','data_700_70.txt','data_1000_50.txt','data_1000_100.txt']
+    inp = ['data_10_2.txt']
    
     for s in inp: 
         path_inp = './data/'+s 
@@ -125,7 +142,4 @@ if __name__=="__main__":
         output.close()
         print("Best Assignments:", assignments)
         
-
-
-
 

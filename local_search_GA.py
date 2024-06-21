@@ -40,6 +40,21 @@ def generate_neighbors(assignments,num_employees):
                 if len(neighbors) > 5000: break 
             if len(neighbors) > 5000: break 
         if len(neighbors)> 5000: break 
+    
+    for old_emp in assignments.keys():
+        for i in range(len(assignments[old_emp])):
+            for j in range(i+1, len(assignments[old_emp])):
+                new_assignments = {emp: assignments[emp].copy() for emp in assignments.keys()}
+                new_assignments[old_emp] = new_assignments[old_emp][:i] + list(reversed(new_assignments[old_emp][i:j+1])) + new_assignments[old_emp][j+1:]
+                neighbors.append(new_assignments)
+                if len(neighbors) > 5000:
+                    break
+                if len(neighbors) > 5000:
+                    break
+            if len(neighbors) > 5000: break 
+        if len(neighbors)> 5000: break 
+    random.shuffle(neighbors) 
+    
     return neighbors
 
 def calculate_fitness(assignments, repair_times, travel_times):
@@ -111,7 +126,7 @@ def local_search_with_ga(customers, repair_times, travel_times, num_employees, p
 
         for assignments in population:
             # Perform local search on each individual
-            for _ in range(1000):  # Local search iterations
+            for _ in range(100):  # Local search iterations
                 neighbors = generate_neighbors(assignments,num_employees)
                 best_emp = None
                 best_time_diff = float('inf')
@@ -150,8 +165,8 @@ def local_search_with_ga(customers, repair_times, travel_times, num_employees, p
 
 # Test with file
 if __name__=="__main__": 
-    inp = ['data_100_10.txt','data_100_50.txt','data_200_20.txt','data_200_50.txt','data_500_20.txt','data_700_50.txt'
-           'data_700_70.txt','data_1000_50.txt','data_1000_100.txt']
+    #inp = ['data_50_5.txt','data_50_7.txt','data_50_10.txt','data_50_20.txt','data_50_25.txt']
+    inp = ['data_10_2.txt']
     for s in inp: 
         path_inp = './data/'+s 
         path_out = './result/result_local_search_GA/'+s
@@ -169,8 +184,8 @@ if __name__=="__main__":
             travel_times[i] = [int(tmp[i]) for i in range(num_customers+1)]
         
         starttime = time() 
-        population_size = 5 # Size of the population
-        num_generations = 20 # Number of generations
+        population_size = 5  # Size of the population
+        num_generations = 20  # Number of generations
         mutation_rate = 0.2  # Probability of mutation
         
         assignments, best_time = local_search_with_ga(

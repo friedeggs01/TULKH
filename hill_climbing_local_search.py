@@ -17,6 +17,7 @@ def calculate_total_time(assignments, repair_times, travel_times):
 
 def generate_neighbors(assignments,num_employees):
     neighbors = []
+    random.shuffle(assignments)
     for old_emp in assignments.keys():
         for old_cust in assignments[old_emp]: 
             for new_emp in range(num_employees):
@@ -37,7 +38,7 @@ def local_search(customers, repair_times, travel_times, num_employees):
     best_time = calculate_total_time(assignments, repair_times, travel_times)
 
     # Perform local search iterations
-    num_iterations = 100000
+    num_iterations = 10000
     for _ in range(num_iterations):
         neighbors = generate_neighbors(assignments,num_employees)
         best_emp = None
@@ -60,8 +61,8 @@ def local_search(customers, repair_times, travel_times, num_employees):
 
 if __name__=="__main__": 
 
-    fi = open('./data/data_1000_50.txt','r') 
-    output = open('./result/result_hill_climbing_local_search/data_1000_50.txt','w')
+    fi = open('./data/data_10_2.txt','r') 
+    output = open('./result/result_hill_climbing_local_search/data_10_2.txt','w')
     num_customers, num_employees = fi.readline().split(' ') 
     #num_customers, num_employees = input().split(' ')
     num_customers, num_employees = int(num_customers), int(num_employees) 
