@@ -1,5 +1,5 @@
 Objective: 983
-Running time : 0.06777715682983398
+Running time : 0.050908803939819336
 Solution : 
 0 3 1 0
 0 5 4 0

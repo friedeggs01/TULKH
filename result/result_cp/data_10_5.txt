@@ -1,5 +1,5 @@
 Objective: 1533
-Running time : 0.039618730545043945
+Running time : 0.024999380111694336
 Solution : 
 0 6 0
 0 2 7 8 0

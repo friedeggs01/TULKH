@@ -1,5 +1,5 @@
 Objective: 2299
-Running time : 0.026620864868164062
+Running time : 0.01707744598388672
 Solution : 
 0 3 1 4 5 0
 0 2 6 8 0
